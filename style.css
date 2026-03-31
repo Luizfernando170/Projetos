@@ -1,0 +1,278 @@
+/* Estilo inspirado na identidade visual da Netflix */
+:root {
+    /* Define o esquema de cores para navegadores que suportam tema escuro */
+    color-scheme: dark;
+    /* Define a família de fontes usada em todo o site */
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    /* Cores do tema escuro */
+    --text: #ffffff;
+    --bg: radial-gradient(circle at top, rgba(229, 9, 20, 0.18), transparent 30%),
+        linear-gradient(180deg, #141414 0%, #090909 100%);
+    --bg-base: #141414;
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    --card-shadow-hover: 0 28px 70px rgba(0, 0, 0, 0.45);
+    --border-hover: rgba(9, 170, 229, 0.7);
+    --caption-bg: rgba(0, 0, 0, 0.65);
+    --caption-text: #ffffff;
+    --accent: #e50914;
+    /* Variáveis de espaçamento para responsividade */
+    --spacing-small: 1rem;
+    --spacing-medium: 2rem;
+    --spacing-large: 3rem;
+}
+
+.light-theme {
+    color-scheme: light;
+    --text: #111111;
+    --bg: linear-gradient(180deg, #f7f7f7 0%, #e5e5e5 100%);
+    --bg-base: #f7f7f7;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    --card-shadow-hover: 0 28px 70px rgba(0, 0, 0, 0.12);
+    --border-hover: rgba(229, 9, 20, 0.7);
+    --caption-bg: rgba(255, 255, 255, 0.85);
+    --caption-text: #111111;
+    --accent: #b81d24;
+}
+
+* {
+    /* Ajusta box-sizing para incluir padding e border nas dimensões totais */
+    box-sizing: border-box;
+}
+
+html, body {
+    /* Remove margem padrão do navegador */
+    margin: 0;
+    /* Garante que a página ocupe a altura mínima da janela */
+    min-height: 100%;
+}
+
+body {
+    /* Fundo com gradiente definido pelas variáveis de tema */
+    background: var(--bg);
+    /* Usa flexbox para centralizar o conteúdo na tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Espaçamento interno ao redor do conteúdo principal */
+    padding: var(--spacing-medium);
+    /* Cor do texto com base no tema */
+    color: var(--text);
+    background-color: var(--bg-base);
+}
+
+main {
+    /* Limita a largura máxima e mantém o conteúdo responsivo */
+    width: min(100%, 960px);
+    /* Espaçamento interno dentro da área principal */
+    padding: var(--spacing-medium);
+}
+
+header {
+    /* Centraliza o texto do cabeçalho */
+    text-align: center;
+    /* Espaço abaixo do cabeçalho antes do restante do conteúdo */
+    margin-bottom: var(--spacing-medium);
+    position: relative;
+}
+
+.theme-toggle {
+    /* Estilo do botão de alternância de tema */
+    margin-top: 1rem;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.55);
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.theme-toggle::before {
+    content: '🌙';
+    font-size: 1.2rem;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    outline: none;
+    transform: scale(1.05);
+}
+
+.light-theme .theme-toggle {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text);
+    border-color: rgba(0, 0, 0, 0.16);
+}
+
+.light-theme .theme-toggle::before {
+    content: '☀️';
+}
+
+h1 {
+    /* Tamanho de fonte flexível entre valores mínimo e máximo */
+    font-size: clamp(2.2rem, 2.5vw, 3rem);
+    /* Ajuste fino do espaçamento entre letras para um visual mais moderno */
+    letter-spacing: -0.04em;
+    /* Remove espaçamento interno padrão do título */
+    margin: 0;
+}
+
+.profiles {
+    /* Espaço interno e visual do container de perfis */
+    margin: 0;
+    padding: 0;
+}
+
+.profiles ul {
+    /* Remove marcadores da lista ordenada e não ordenada */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* Layout de grade responsiva para os itens da lista */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 4rem;
+    align-items: stretch;
+}
+
+@media (min-width: 900px) {
+    .profiles ul {
+        /* Alinha perfis em linha única em telas largas */
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+}
+
+.profile {
+    /* Fundo semi-transparente para o card */
+    background: var(--card-bg);
+    /* Borda suave ao redor do card */
+    border: 1px solid var(--card-border);
+    /* Bordas arredondadas para um aspecto de cartão */
+    border-radius: 1.25rem;
+    /* Esconde conteúdos que ultrapassem a borda arredondada */
+    overflow: hidden;
+    /* Sombra suave para dar profundidade aos cards */
+    box-shadow: var(--card-shadow);
+    /* Animação suave ao alterar transformações e borda */
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profile:hover {
+    /* Eleva o card ao passar o mouse */
+    transform: translateY(-6px);
+    /* Muda a cor da borda quando o card está ativo/hover */
+    border-color: rgba(9, 170, 229, 0.7);
+    /* Sombra mais forte para reforçar o hover */
+    box-shadow: var(--card-shadow-hover);
+}
+
+.profile figure {
+    /* Remove margens padrões do elemento figure */
+    margin: 0;
+    /* Permite posicionamento absoluto do figcaption */
+    position: relative;
+}
+
+.profile img {
+    /* Remove espaços indesejados abaixo da imagem */
+    display: block;
+    /* Faz a imagem ocupar toda a largura do card */
+    width: 100%;
+    /* Mantém a proporção natural da imagem */
+    height: auto;
+    /* Garante que a imagem fique quadrada */
+    aspect-ratio: 1 / 1;
+    /* Corta ou ajusta a imagem para preencher o recipiente sem distorção */
+    object-fit: cover;
+}
+
+figcaption {
+    /* Posiciona a legenda sobre a imagem */
+    position: absolute;
+    inset: auto 0 1rem;
+    /* Espaçamento interno da legenda */
+    padding: 0.75rem 1rem;
+    /* Espaçamento externo horizontal da legenda */
+    margin: 0 0.75rem;
+    /* Fundo do caption definido pelas variáveis de tema */
+    background: var(--caption-bg);
+    /* Cor do texto da legenda */
+    color: var(--caption-text);
+    /* Tamanho da fonte da legenda */
+    font-size: 1rem;
+    /* Centraliza o texto dentro da legenda */
+    text-align: center;
+    /* Bordas arredondadas para a legenda */
+    border-radius: 0.75rem;
+    /* Desfoca o fundo atrás da legenda para destaque visual */
+    backdrop-filter: blur(6px);
+}
+
+@media (max-width: 900px) {
+    /* Ajuste para tablets e telas intermediárias */
+    body {
+        padding: var(--spacing-medium);
+    }
+
+    main {
+        padding: var(--spacing-small);
+    }
+
+    .profiles {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Ajuste para smartphones grandes */
+    body {
+        padding: var(--spacing-small);
+    }
+
+    main {
+        padding: 1.25rem;
+    }
+
+    h1 {
+        font-size: clamp(1.9rem, 6vw, 2.5rem);
+    }
+
+    .profiles {
+        gap: 1rem;
+    }
+
+    figcaption {
+        font-size: 0.95rem;
+        margin: 0 0.5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    /* Ajuste para smartphones compactos */
+    .profiles {
+        grid-template-columns: 1fr;
+    }
+
+    .profile {
+        border-radius: 1rem;
+    }
+
+    figcaption {
+        padding: 0.6rem 0.9rem;
+    }
+}
